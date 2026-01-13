@@ -41,8 +41,10 @@ MSSQL INSERT (Transaction)
     |
     +--> ROLLBACK -> Error Mail
 
+---
 
 ## Proje Yapısı
+
 ### Application Layer
 - `main.py` – Entry point
 - `job.py` – ETL orchestration
@@ -61,7 +63,8 @@ MSSQL INSERT (Transaction)
 - `Dockerfile`
 - `docker-compose.yml`
 
---
+---
+
 
 ##  Gereksinimler
 

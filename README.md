@@ -8,6 +8,17 @@ Servis günlük olarak çalışacak şekilde tasarlanmıştır ve tüm kayıt i�
 transaction içinde gerçekleştirilir. İşlem sonunda yalnızca **tek bir özet mail**
 gönderilir.
 
+## İçindekiler
+
+- [Özellikler](#özellikler)
+- [Mimari Özet](#mimari-özet)
+- [Proje Yapısı](#proje-yapısı)
+- [Gereksinimler](#gereksinimler)
+- [Kurulum](#kurulum)
+- [Kullanım](#kullanım)
+- [Yapılandırma](#yapılandırma)
+- [Lisans](#lisans)
+
 ---
 
 ## Özellikler
@@ -40,6 +51,7 @@ MSSQL INSERT (Transaction)
     +--> COMMIT   -> Summary Mail
     |
     +--> ROLLBACK -> Error Mail
+```
 
 ---
 
@@ -65,8 +77,7 @@ MSSQL INSERT (Transaction)
 
 ---
 
-
-##  Gereksinimler
+## Gereksinimler
 
 ### Yerel Çalıştırma
 
@@ -82,7 +93,68 @@ MSSQL INSERT (Transaction)
 
 ---
 
-## Ortam Değişkenleri (.env)
+## Kurulum
+
+### Yerel Kurulum
+
+1. Sanal ortam oluşturun:
+   ```bash
+   python -m venv venv
+   ```
+
+2. Sanal ortamı etkinleştirin:
+   ```bash
+   venv\Scripts\activate  # Windows
+   # source venv/bin/activate  # Linux/Mac
+   ```
+
+3. Bağımlılıkları yükleyin:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+### Docker ile Kurulum
+
+Dockerfile ve docker-compose.yml dosyalarını kullanarak container oluşturun.
+
+```bash
+docker build -t ats-mileage-sync .
+```
+
+---
+
+## Kullanım
+
+### Yerel Çalıştırma
+
+Servisi çalıştırmak için:
+
+```bash
+python -m src.main
+```
+
+Belirli bir tarih için çalıştırmak:
+
+```bash
+python -m src.main --date 2026-01-06
+```
+
+### Otomatik Çalıştırma
+
+- **Windows**: Task Scheduler ile `scripts/run_daily.sh` betiğini günlük çalıştırın.
+- **Linux**: Cron job ile `scripts/run_daily.sh` betiğini günlük çalıştırın.
+
+### Docker ile Çalıştırma
+
+```bash
+docker run ats-mileage-sync
+```
+
+---
+
+## Yapılandırma
+
+Ortam değişkenlerini `.env` dosyasında ayarlayın:
 
 ```env
 # SOAP
@@ -109,16 +181,10 @@ SMTP_USER=xxxx
 SMTP_PASSWORD=xxxxx
 MAIL_FROM=xxxx
 MAIL_TO=xxxx
+```
 
 ---
 
-## Kurulum
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-python -m src.main
+## Lisans
 
-Belirli bir tarih için:
-python -m src.main --date 2026-01-06
-
-```
+Bu proje [LICENSE](LICENSE) dosyasında belirtilen lisans altında lisanslanmıştır.

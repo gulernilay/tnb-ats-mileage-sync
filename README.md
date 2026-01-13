@@ -25,44 +25,45 @@ gönderilir.
 
 ## Mimari Özet
 
+```text
 SOAP Service
-|
-v
+    |
+    v
 XML Fetch
-|
-v
+    |
+    v
 XML Parse
-|
-v
+    |
+    v
 MSSQL INSERT (Transaction)
-|
-+--> COMMIT -> Summary Mail
-|
-+--> ROLLBACK -> Error Mail
+    |
+    +--> COMMIT   -> Summary Mail
+    |
+    +--> ROLLBACK -> Error Mail
+
 
 ## Proje Yapısı
+### Application Layer
+- `main.py` – Entry point
+- `job.py` – ETL orchestration
 
-tnb-ats-mileage-sync/
-│
-├── src/
-│ ├── main.py # Entry point
-│ ├── job.py # İş akışı (ETL orchestration)
-│ ├── soap_client.py # SOAP client
-│ ├── parser.py # XML parser
-│ ├── db.py # MSSQL işlemleri
-│ ├── mail_client.py # HTML mail sender
-│ ├── logger.py # File logger
-│ └── config.py # Environment config
-│
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
-├── .env
-└── README.md
+### Integration Layer
+- `soap_client.py` – SOAP client
+- `parser.py` – XML parser
+
+### Infrastructure Layer
+- `db.py` – MSSQL operations
+- `mail_client.py` – Mail sender
+- `logger.py` – Logging
+- `config.py` – Environment config
+
+### Deployment
+- `Dockerfile`
+- `docker-compose.yml`
 
 --
 
-## ⚙️ Gereksinimler
+##  Gereksinimler
 
 ### Yerel Çalıştırma
 
